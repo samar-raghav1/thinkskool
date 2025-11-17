@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const navigate=useNavigate();
@@ -19,13 +20,12 @@ const Navbar = () => {
         
        
         <nav className="hidden lg:flex space-x-8 text-gray-600 font-medium pl-32">
-          <a href="#" className="hover:text-gray-900 transition duration-150">Home</a>
-          <a href="#" className="hover:text-gray-900 transition duration-150">Programs</a>
-          <a href="#" className="hover:text-gray-900 transition duration-150">Advantage</a>
-          <a href="#" className="hover:text-gray-900 transition duration-150">Courses</a>
-          <a href="#" className="hover:text-gray-900 transition duration-150">Portal</a>
-          <a href="#" className="hover:text-gray-900 transition duration-150">Exposure</a>
-          <a href="#" className="hover:text-gray-900 transition duration-150">Contact</a>
+          <Link to="/" className="hover:text-gray-900 transition duration-150">Home</Link>
+          <Link to="/programs" className="hover:text-gray-900 transition duration-150">Programs</Link>
+          <Link to="/feature" className="hover:text-gray-900 transition duration-150">Features</Link>
+          <Link to="/course" className="hover:text-gray-900 transition duration-150">Courses</Link>
+          <Link to="#" className="hover:text-gray-900 transition duration-150">Portal</Link>
+          <Link to="/contact" className="hover:text-gray-900 transition duration-150">Contact</Link>
         </nav>
       </div>
 

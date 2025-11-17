@@ -20,11 +20,14 @@ const Hero = () => {
 
       {/* Sub-headline */}
       <p className="text-xs sm:text-xl text-gray-600 mb-10 max-w-xl">
-        Empowering the next generation with cutting-edge technology skills, real-world projects, and industry mentorship. Join 10,000+ students who are building tomorrow's innovations today.
+       ThinkSkool brings future-ready STEM education directly into school hours through 
+hands-on learning, cloud labs, and industry-designed programs. Students explore AI, 
+cybersecurity, robotics, and development with real projects and expert guidance.
       </p>
 
       {/* Primary Action Button */}
-      <button  onClick={()=>navigate('/role')}
+      <div className='flex gap-4'>
+        <button  onClick={()=>navigate('/role')}
         className="px-10 py-4 text-xl font-semibold text-white rounded-full shadow-lg transform transition duration-300 hover:scale-[1.03]"
         style={{ 
           backgroundColor: customOrange, // Main button color set to customOrange
@@ -33,6 +36,16 @@ const Hero = () => {
       >
         Start your journey
       </button>
+      <button  onClick={()=>navigate('/role')}
+        className="px-10 py-4 text-xl font-semibold text-white rounded-full shadow-lg transform transition duration-300 hover:scale-[1.03]"
+        style={{ 
+          backgroundColor: customOrange, // Main button color set to customOrange
+          boxShadow: `0 4px 14px 0 rgba(255, 140, 0, 0.4)` // Optional shadow effect
+        }}
+      >
+        Book a Demo Call
+      </button>
+      </div>
 
     
 
