@@ -39,7 +39,7 @@ const ChooseRole = () => {
    const roles = [
     { title: 'Student', icon: User, path: '/student/login' },
     { title: 'Mentor', icon: BookOpen, path: '/mentor/login' },
-    { title: 'SchoolAdmin', icon: Shield, path: '/admin/login' },
+    { title: 'Admin', icon: Shield, path: '/admin/login' },
   ];
 
   // New function to handle exit navigation
