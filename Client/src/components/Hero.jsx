@@ -27,15 +27,18 @@ cybersecurity, robotics, and development with real projects and expert guidance.
 
       {/* Primary Action Button */}
       <div className='md:flex gap-4'>
-        <button  onClick={()=>navigate('/role')}
-        className="px-10 py-4 text-xl font-semibold text-white rounded-full shadow-lg mb-4 transform transition duration-300 hover:scale-[1.03]"
-        style={{ 
-          backgroundColor: customOrange, // Main button color set to customOrange
-          boxShadow: `0 4px 14px 0 rgba(255, 140, 0, 0.4)` // Optional shadow effect
-        }}
-      >
-        Start your journey
-      </button>
+      <button 
+  onClick={()=>navigate('/role')}
+  className="hidden md:block 
+     md:px-8 md:py-4 md:text-xl font-bold text-white rounded-full 
+    shadow-xl mb-4 transform transition duration-300 hover:scale-105 "
+  style={{ 
+    backgroundColor: customOrange, 
+    boxShadow: `0 8px 25px 0 rgba(255, 140, 0, 0.5)`
+  }}
+>
+  Start your journey
+</button>
       <button  onClick={()=>navigate('/contact')}
         className="px-10 py-4 text-xl font-semibold mb-4  text-white rounded-full shadow-lg transform transition duration-300 hover:scale-[1.03]"
         style={{ 
