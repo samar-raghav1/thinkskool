@@ -3,12 +3,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
-/**
- * Sidebar Component
- * Navigation sidebar with menu items and responsive behavior
- * - Large screens: Always visible with content
- * - Small screens: Slide-in drawer with menu button
- */
+
 const Sidebar = ({ isOpen, setOpen, navItems, activeFeature, setActiveFeature }) => (
   <div >
     {/* Backdrop for mobile only */}
@@ -23,10 +18,6 @@ const Sidebar = ({ isOpen, setOpen, navItems, activeFeature, setActiveFeature })
         />
       )}
     </AnimatePresence>
-
-    {/* Main Sidebar */}
-    {/* On large screens: static, always visible */}
-    {/* On small screens: fixed, slides in when isOpen is true */}
     <motion.aside
       initial={false}
       animate={{ x: isOpen ? 0 : '-100%' }}
@@ -50,17 +41,19 @@ const Sidebar = ({ isOpen, setOpen, navItems, activeFeature, setActiveFeature })
         {navItems.map((item) => (
           <motion.button
             key={item.id}
-            onClick={() => { 
+            onClick={() => {
               setActiveFeature(item.id); 
               // Close sidebar on mobile after selection
               if (window.innerWidth < 1024) {
                 setOpen(false);
               }
+              setOpen(false);
+              
             }}
             whileHover={{ x: 5, backgroundColor: 'rgba(55, 65, 81, 1)' }}
             className={`flex items-center space-x-3 px-3 py-3 rounded-lg cursor-pointer transition-colors text-left ${
               activeFeature === item.id
-                ? 'bg-indigo-600 text-white shadow-lg' 
+                ? 'bg-[#007FFF] text-white shadow-lg' 
                 : 'text-gray-300 hover:bg-gray-700'
             }`}
           >

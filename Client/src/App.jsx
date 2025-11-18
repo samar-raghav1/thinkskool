@@ -24,6 +24,7 @@ import Course from './components/Course.jsx';
 import AdminLoginPage from './pages/School/AdminLoginPage.jsx';
 import StudentLoginPage from './pages/Student/StudentLoginPage.jsx';
 import MentorLoginPage from './pages/Mentor/MentorLoginPage.jsx';
+import DownloadPage from './pages/DownloadPage.jsx';
 
 
 // --- Home Page Component ---
@@ -58,7 +59,8 @@ const App = () => {
         '/student-assignment',
         '/admin/login',
         '/student/login',
-        '/mentor/login'
+        '/mentor/login',
+        
     ];
     
     // 3. Check if the current path is in the hidden list
@@ -85,6 +87,7 @@ const App = () => {
                 <Route path='/student' element={<StuDashboard />} />
                 <Route path='/mentor' element={<MentorDashboard />} />
                 <Route path='/school-admin' element={<SchoolAdminPage />} />
+                <Route path='/downloads' element={<DownloadPage/>}/>
                 
                 {/* Student Dashboard Sub-routes (Hidden Layout) */}
                 <Route path='/student-doubt' element={<StuDoubtSupport />} />
