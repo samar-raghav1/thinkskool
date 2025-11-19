@@ -15,7 +15,7 @@ const Navbar = () => {
   // 1. Determine Initial State based on Screen Size
   // If the window is wide when the component loads, the menu should be false initially.
   const isScreenWide = window.matchMedia(MD_BREAKPOINT_QUERY).matches;
-  const [isMenuOpen, setIsMenuOpen] = useState(!isScreenWide); 
+  const [isMenuOpen, setIsMenuOpen] = useState(isScreenWide); 
   
   // Note: We set it to true/false based on the *current* screen size for the initial render.
   // It's often simpler to just initialize it to false:
