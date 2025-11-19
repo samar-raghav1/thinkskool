@@ -60,6 +60,7 @@ const App = () => {
         '/admin/login',
         '/student/login',
         '/mentor/login',
+        '/downloads'
         
     ];
     
