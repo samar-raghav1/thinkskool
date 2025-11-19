@@ -34,8 +34,7 @@ const StudentSidebar = () => {
       <div className="flex flex-col">
         <div className="flex items-center justify-between mb-8">
           <div className="text-3xl font-extrabold flex items-center">
-            <span className='text-[#007FFF]'>think</span>
-            <span className='text-[#FF8C00]'>Lab</span>
+            <span className='text-[#007FFF]'>think</span> <span className='text-[#FF8C00]'>skool</span>
           </div>
           <button
             className="md:hidden p-2 text-gray-500 hover:text-gray-700 rounded-full"
