@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom'; // Import useLocation
 
 // Layout Components (Always visible or shared)
@@ -11,13 +11,10 @@ import About from './components/About';
 import Marque from './components/Marque';
 import Feature from './components/Feature'; 
 
-// Page Components
-import StuDashboard from './pages/Student/StuDashboard.jsx';
+
 import MentorDashboard from './pages/Mentor/MentorDashboard.jsx';
 import SchoolAdminPage from './pages/School/SchoolAdminPage.jsx';
 import ChooseRole from './components/ChooseRole.jsx';
-import StuDoubtSupport from './components/Student/StuDoubtSupport.jsx';
-import StuAssignmentView from './components/Student/StuAssignmentView.jsx';
 import DetailedProgram from './components/DetailedProgram.jsx';
 import Contact from './components/Contact.jsx';
 import Course from './components/Course.jsx';
@@ -25,6 +22,9 @@ import AdminLoginPage from './pages/School/AdminLoginPage.jsx';
 import StudentLoginPage from './pages/Student/StudentLoginPage.jsx';
 import MentorLoginPage from './pages/Mentor/MentorLoginPage.jsx';
 import DownloadPage from './pages/DownloadPage.jsx';
+import MainLayout from './components/Student/MainLayout.jsx';
+import renderPage from './pages/Student/renderPage.jsx';
+import { PortalContext } from './components/Context/PortalProvider.jsx';
 
 
 // --- Home Page Component ---
@@ -41,6 +41,8 @@ const HomePage = () => (
 );
 
 const App = () => {
+
+     const usePortal = () => useContext(PortalContext);
     // 1. Get the current path
     const location = useLocation();
 
@@ -55,8 +57,6 @@ const App = () => {
         '/mentor', 
         '/school-admin',
         // You might want to hide the layout on sub-pages within the dashboard too:
-        '/student-doubt', 
-        '/student-assignment',
         '/admin/login',
         '/student/login',
         '/mentor/login',
@@ -85,14 +85,15 @@ const App = () => {
 
                 {/* Authentication & Dashboard Routes (Hidden Layout) */}
                 <Route path='/role' element={<ChooseRole />} />
-                <Route path='/student' element={<StuDashboard />} />
+                <Route path='/student' element={<MainLayout>
+                        {renderPage(usePortal().currentView, usePortal().role)}
+                     </MainLayout>} />
                 <Route path='/mentor' element={<MentorDashboard />} />
                 <Route path='/school-admin' element={<SchoolAdminPage />} />
                 <Route path='/downloads' element={<DownloadPage/>}/>
                 
                 {/* Student Dashboard Sub-routes (Hidden Layout) */}
-                <Route path='/student-doubt' element={<StuDoubtSupport />} />
-                <Route path='/student-assignment' element={<StuAssignmentView />} />
+                
 
 
                 {/*Login*/}

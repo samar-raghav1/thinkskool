@@ -1,6 +1,6 @@
 import { Folder, Settings } from 'lucide-react';
 import React from 'react';
-import { MOCK_ASSIGNMENTS, MOCK_COURSES } from './mockData';
+import { MOCK_ASSIGNMENTS, MOCK_COURSES } from '../../assets/mockData';
 import { Card, IconButton } from './SharedComponents';
 
 const AssignmentManagement = () => {

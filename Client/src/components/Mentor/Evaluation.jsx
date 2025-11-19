@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { MOCK_EVALUATIONS } from "./mockData";
+import { MOCK_EVALUATIONS } from "../../assets/mockData";
 import { Card } from "./SharedComponents";
 import { CheckCircle } from "lucide-react";
 

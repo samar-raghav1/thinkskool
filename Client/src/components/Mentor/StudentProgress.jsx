@@ -1,6 +1,6 @@
 import { ArrowRight, Book, CheckCircle, TrendingUp, Users } from 'lucide-react';
 import React from 'react';
-import { MOCK_STUDENT_PROGRESS } from './mockData';
+import { MOCK_STUDENT_PROGRESS } from '../../assets/mockData';
 import { Card, IconButton, ProgressStatCard } from './SharedComponents';
 
 const StudentProgress = () => {
