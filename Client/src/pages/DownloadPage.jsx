@@ -58,15 +58,11 @@ function DownloadPage() {
   const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
-         <div className="flex justify-between items-center max-w-7xl mx-auto px-4 mb-10 sm:px-6 lg:px-8 py-4">
-           <button 
+          <button 
              onClick={()=>navigate('/')}
-             className=" p-2 text-gray-700 rounded-full bg-gray-100 hover:bg-gray-200 transition duration-150 cursor-pointer"> 
+             className=" p-2 text-gray-700 rounded-full bg-gray-100 hover:bg-gray-200 transition md:mx-32 duration-150 cursor-pointer"> 
              <MoveLeft className="w-5 h-5" />
           </button>
-
-          
-        </div>
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
