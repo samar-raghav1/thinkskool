@@ -9,7 +9,7 @@ const documents = [
     title: "Brochure", 
     description: "See what is in the course", 
     fileName: "Brochure.pdf", 
-    url: "/assets/pdf/Brochure.pdf",
+    url: "../assets/pdf/Brochure.pdf",
     icon: TextIcon,
     color: 'bg-indigo-500'
   },
