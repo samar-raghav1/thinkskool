@@ -57,7 +57,7 @@ const About = () => {
           {/* --- Left Side: Text Content (Updated) --- */}
           <div className="text-center lg:text-left">
             <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-8 leading-tight">
-              Who We Are: <span className='text-[#007FFF]'>think</span><span className='text-[#FF8C00]'>skool</span>
+              Who We Are
             </h1>
             
             {/* ThinkSkool Description */}
@@ -70,7 +70,7 @@ const About = () => {
             
             {/* Mission and Vision */}
             <div className="space-y-6 mb-12 border-l-4 border-blue-500 pl-4 py-2 bg-blue-50/50 rounded-md shadow-inner">
-              <h3 className="text-2xl font-semibold text-[#FF8C00]">Our Mission & Vision</h3>
+              <h3 className="text-2xl font-semibold ">Our Mission & Vision</h3>
               <p className="text-lg text-gray-700 leading-relaxed">
                 Mission: To empower students with future-ready skills by embedding high-quality 
                 STEM education directly into school systems across India.

@@ -1,16 +1,16 @@
-import React from 'react';
-import {  FolderOpenIcon ,DownloadIcon, BeakerIcon, TextIcon, XIcon, MoveLeft} from "lucide-react"
-import { useNavigate } from 'react-router-dom';
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
+import { FileText, FolderOpen, FlaskConical, Download } from 'lucide-react';
 
-// 1. Define the List of Documents with a dedicated icon type
-const documents = [
+// Mock data, replacing original icon references with Lucide icons
+const initialDocuments = [
   { 
     id: 1, 
     title: "Brochure", 
     description: "See what is in the course", 
     fileName: "Brochure.pdf", 
-    url: "../assets/pdf/Brochure.pdf",
-    icon: TextIcon,
+    url: "../assets/pdf/dummy.pdf",
+    Icon: FileText,
     color: 'bg-indigo-500'
   },
   { 
@@ -18,8 +18,8 @@ const documents = [
     title: "Installation Guide", 
     description: "Step-by-step instructions for quick and easy setup.", 
     fileName: "installation_guide.pdf", 
-    url: "/assets/pdfs/installation_guide.pdf",
-    icon: FolderOpenIcon,
+    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    Icon: FolderOpen,
     color: 'bg-green-500'
   },
   { 
@@ -27,8 +27,8 @@ const documents = [
     title: "Warranty and Terms", 
     description: "Detailed information on product warranties and service terms.", 
     fileName: "warranty_terms.pdf", 
-    url: "/assets/pdfs/warranty_terms.pdf",
-    icon: TextIcon,
+    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    Icon: FileText,
     color: 'bg-red-500'
   },
   { 
@@ -36,100 +36,100 @@ const documents = [
     title: "Data Sheet: Model X-9000", 
     description: "Technical specifications and performance metrics.", 
     fileName: "data_sheet_x9000.pdf", 
-    url: "/assets/pdfs/data_sheet_x9000.pdf",
-    icon: BeakerIcon,
+    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    Icon: FlaskConical,
     color: 'bg-yellow-500'
   },
 ];
 
-// Helper function to handle the download action (remains the same)
-const handleDownload = (doc) => {
-  const link = document.createElement('a');
-  link.href = doc.url;
-  link.download = doc.fileName;
-  link.target = '_blank';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+/**
+ * Handles the dual action: first opens the document in a new tab,
+ * then triggers the download shortly after.
+ * @param {object} doc - The document object containing url and fileName.
+ */
+const handleViewAndDownload = (doc) => {
+  // 1. Open the PDF in a new tab/window for viewing
+  const newWindow = window.open(doc.url, '_blank', 'noopener,noreferrer');
+
+  // 2. Wait a moment before triggering the download. 
+  // This small delay (100ms) helps ensure the browser processes the 'open' command first.
+  setTimeout(() => {
+    try {
+      // 3. Trigger the download using a temporary anchor element
+      const link = document.createElement('a');
+      link.href = doc.url;
+      link.download = doc.fileName; // This attribute forces a download dialog
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      console.log(`Download triggered for: ${doc.fileName}`);
+    } catch (error) {
+      // Fallback for strict browser environments
+      console.error("Could not trigger download. The file may only be opened for viewing.", error);
+    }
+  }, 100);
 };
 
+const DocumentCard = ({ doc }) => {
+  const IconComponent = doc.Icon;
 
-function DownloadPage() {
-  const navigate = useNavigate();
   return (
-    <div className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
-          <button 
-             onClick={()=>navigate('/')}
-             className=" p-2 text-gray-700 rounded-full bg-gray-100 hover:bg-gray-200 transition md:mx-32 duration-150 cursor-pointer"> 
-             <MoveLeft className="w-5 h-5" />
-          </button>
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Header */}
-        <header className="text-center mb-12">
-          <h1 className="text-5xl font-extrabold text-gray-900 tracking-tight sm:text-6xl">
-            Essential Resources
-          </h1>
-          <p className="mt-4 text-xl text-gray-500">
-            Access our technical data, guides, and documentation instantly.
-          </p>
-        </header>
-
-        {/* 2. Documents Grid Container (Enhanced Responsiveness) */}
-        <div className="
-          grid gap-8 
-          grid-cols-1       // Default: Single column on small screens
-          sm:grid-cols-2    // Tablet/Small desktop: Two columns
-          lg:grid-cols-4    // Large desktop: Four columns
-        ">
-          {documents.map((doc) => (
-            <div 
-              key={doc.id} 
-              className="
-                relative bg-white p-6 rounded-xl shadow-lg 
-                hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] 
-                border border-gray-100 flex flex-col justify-between
-              "
-            >
-              <div className="flex flex-col">
-                {/* Icon Circle */}
-                <div className={`
-                  ${doc.color} p-3 rounded-full w-12 h-12 flex items-center justify-center 
-                  text-white shadow-md mb-4
-                `}>
-                  <doc.icon className="w-6 h-6" />
-                </div>
-                
-                {/* Content */}
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  {doc.title}
-                </h3>
-                <p className="text-sm text-gray-600 mb-4 grow">
-                  {doc.description}
-                </p>
-              </div>
-
-              {/* Download Action Link/Button */}
-              <a
-                href="#" // Use href="#" for semantics, then handle click
-                onClick={(e) => { e.preventDefault(); handleDownload(doc); }}
-                className="
-                  mt-4 w-full flex items-center justify-center 
-                  px-4 py-2 border border-transparent text-sm font-medium rounded-full 
-                  text-blue-600 bg-blue-50 hover:bg-blue-100 
-                  transition duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
-                "
-              >
-                <DownloadIcon className="w-4 h-4 mr-2" aria-hidden="true" />
-                Download ({doc.fileName.split('.').pop().toUpperCase()})
-              </a>
-            </div>
-          ))}
+    <div className="flex flex-col bg-white border border-gray-100 rounded-xl shadow-lg hover:shadow-xl transition duration-300 p-6 space-y-4">
+      <div className="flex items-center space-x-4">
+        <div className={`p-3 rounded-full ${doc.color} text-white`}>
+          <IconComponent className="w-6 h-6" />
         </div>
-        
+        <div>
+          <h3 className="text-lg font-semibold text-gray-800">{doc.title}</h3>
+          <p className="text-sm text-gray-500">{doc.description}</p>
+        </div>
+      </div>
+      
+      <div className="flex items-center justify-between pt-2 border-t border-gray-50">
+        <span className="text-sm text-blue-600 font-medium truncate max-w-[60%]">
+          {doc.fileName}
+        </span>
+        <button
+          onClick={() => handleViewAndDownload(doc)}
+          className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-md hover:bg-blue-700 transition duration-150 transform hover:scale-[1.02] active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          aria-label={`View and download ${doc.title}`}
+        >
+          <Download className="w-4 h-4" />
+          <span>View & Download</span>
+        </button>
       </div>
     </div>
   );
-}
+};
+
+const DownloadPage = () => {
+  const [documents] = useState(initialDocuments);
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-4 sm:p-8 font-sans">
+      <script src="https://cdn.tailwindcss.com"></script>
+      <div className="max-w-4xl mx-auto">
+        <header className="mb-8">
+          <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
+            Product Documentation
+          </h1>
+          <p className="mt-2 text-lg text-gray-500">
+            Click any document to view the PDF and automatically start the download.
+          </p>
+        </header>
+
+        <main className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {documents.map((doc) => (
+            <DocumentCard key={doc.id} doc={doc} />
+          ))}
+        </main>
+        
+        <footer className="mt-10 pt-6 border-t border-gray-200 text-center text-sm text-gray-400">
+            Note: Dummy PDF URLs are used for demonstration purposes.
+        </footer>
+      </div>
+    </div>
+  );
+};
 
 export default DownloadPage;
