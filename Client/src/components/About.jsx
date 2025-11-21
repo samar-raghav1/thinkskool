@@ -118,7 +118,7 @@ const About = () => {
                   viewport={{ once: true, amount: 0.5 }}
                   transition={{ delay: 0.3 + index * 0.15, type: 'spring', stiffness: 100 }}
                 >
-                  <feature.icon className="text-4xl flex-shrink-0" style={{ color: ACCENT_BLUE }} />
+                  <feature.icon className="text-4xl shrink-0" style={{ color: ACCENT_BLUE }} />
                   <div>
                     <h3 className="text-xl font-semibold text-gray-800">{feature.title}</h3>
                     <p className="text-gray-600">{feature.description}</p>

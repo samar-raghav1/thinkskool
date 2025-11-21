@@ -65,7 +65,7 @@ const DetailedProgram = () => {
         <div className="min-h-screen bg-gray-50 text-gray-800">
             {/* Hero Section (Unchanged) */}
             <motion.div
-                className="relative bg-gradient-to-r from-[#007FFF] to-[#080808] text-white py-20 px-4 overflow-hidden"
+                className="relative bg-linear-to-r from-[#007FFF] to-[#080808] text-white py-20 px-4 overflow-hidden"
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
@@ -151,7 +151,7 @@ const DetailedProgram = () => {
 
                 {/* Call to Action (Unchanged) */}
                 <motion.section
-                    className="text-center bg-gradient-to-r from-blue-500 to-blue-700 text-white p-12 rounded-xl shadow-xl"
+                    className="text-center bg-linear-to-r from-blue-500 to-blue-700 text-white p-12 rounded-xl shadow-xl"
                     variants={sectionVariants}
                     initial="hidden"
                     whileInView="visible"
