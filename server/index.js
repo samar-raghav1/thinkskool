@@ -20,7 +20,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: process.env.FRONTEND_URL||'*', // Allow all origins for now, restrict in production
+        origin: process.env.FRONTEND_URL||'*',
         methods: ['GET', 'POST'],
         credentials:true,
         allowedHeaders: ['Authorization', 'Content-Type' ,'Origin'],
@@ -50,7 +50,6 @@ app.get('/',(req,res)=>{
 io.on('connection', (socket) => {
     console.log('New client connected', socket.id);
 
-    // Join user to their own room for targeted notifications
     socket.on('authenticate', (userId) => {
         socket.join(userId);
         console.log(`User ${userId} authenticated and joined room`);
