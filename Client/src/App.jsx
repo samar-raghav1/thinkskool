@@ -37,7 +37,7 @@ import { TextRevealCardPreview } from './components/TextRevealCardPreview';
 // --- Home Page Component ---
 const HomePage = () => (
     <>
-        <div className='-mt-14'>
+        <div className=''>
             <Hero />
         </div>
         <HeroParallaxDemo />

@@ -77,15 +77,6 @@ const Navbar = () => {
 
         </div>
 
-
-        <nav className="hidden lg:flex space-x-8 text-gray-600 font-medium pl-32">
-          <a href="/" className="hover:text-gray-900 transition duration-150">Home</a>
-          <a href="#programs" className="hover:text-gray-900 transition duration-150">Programs</a>
-          <Link to="/course" className="hover:text-gray-900 transition duration-150">Courses</Link>
-          <Link to="#" className="hover:text-gray-900 transition duration-150">Portal</Link>
-          <a href="#about" className="hover:text-gray-900 transition duration-150">About</a>
-          <Link to="/contact" className="hover:text-gray-900 transition duration-150">Contact</Link>
-        </nav>
       </div>
 
       {/* Right Section: Auth Buttons */}

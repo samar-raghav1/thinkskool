@@ -39,6 +39,10 @@ app.use('/api/assignments', assignmentRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/code', codeExecutionRoutes);
 
+app.get('/',(req,res)=>{
+    res.send('ThinkSkool API is running');
+})
+
 // Socket.io connection with authentication
 io.on('connection', (socket) => {
     console.log('New client connected', socket.id);
