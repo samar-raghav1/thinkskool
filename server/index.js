@@ -20,8 +20,9 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: '*', // Allow all origins for now, restrict in production
+        origin: process.env.FRONTEND_URL||'*', // Allow all origins for now, restrict in production
         methods: ['GET', 'POST'],
+        credentials:true
     },
 });
 
