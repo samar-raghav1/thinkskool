@@ -18,12 +18,14 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 
-app.use(cors({
-  origin: process.env.FRONTEND_URL || '*',
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
-
+const io = new Server(server, {
+  cors: {
+    origin: process.env.FRONTEND_URL || "*",
+    methods: ["GET", "POST"],
+    credentials: true,
+    allowedHeaders: ["Authorization", "Content-Type", "Origin"],
+  },
+});
 
 // Make io accessible in routes
 app.set('io', io);
