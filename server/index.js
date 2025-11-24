@@ -22,7 +22,9 @@ const io = new Server(server, {
     cors: {
         origin: process.env.FRONTEND_URL||'*', // Allow all origins for now, restrict in production
         methods: ['GET', 'POST'],
-        credentials:true
+        credentials:true,
+        allowedHeaders: ['Authorization', 'Content-Type' ,'Origin'],
+
     },
 });
 
