@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-brand-blue: #007FFF;
+  --color-brand-orange: #FF8C00;
+}
+
+* {
+  font-family: sans-serif;
+}
+
+body {
+  background-color: #020617; /* slate-950 */
+  color: #f8fafc; /* slate-50 */
+}
