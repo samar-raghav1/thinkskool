@@ -23,6 +23,7 @@ const Hero = () => {
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold max-w-5xl leading-tight mb-6 text-white drop-shadow-2xl">
           Transform Education with <br className="hidden md:block" />
           <span className="text-[#007FFF] drop-shadow-[0_0_15px_rgba(0,127,255,0.5)]">think</span>
+           <span className='inline-block w-2'></span>
           <span className="text-[#FF8C00] drop-shadow-[0_0_15px_rgba(255,140,0,0.5)]">skool</span>
         </h1>
 

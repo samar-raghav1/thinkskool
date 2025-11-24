@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { FileText, FolderOpen, FlaskConical, Download } from 'lucide-react';
+import Logo from '../components/Logo';
 
 // Mock data, replacing original icon references with Lucide icons
 const initialDocuments = [
@@ -74,7 +75,10 @@ const DocumentCard = ({ doc }) => {
   const IconComponent = doc.Icon;
 
   return (
-    <div className="flex flex-col bg-white border border-gray-100 rounded-xl shadow-lg hover:shadow-xl transition duration-300 p-6 space-y-4">
+   <div>
+    
+     <div className="flex flex-col bg-white border border-gray-100 rounded-xl shadow-lg hover:shadow-xl transition duration-300 p-6 space-y-4 ">
+     
       <div className="flex items-center space-x-4">
         <div className={`p-3 rounded-full ${doc.color} text-white`}>
           <IconComponent className="w-6 h-6" />
@@ -99,6 +103,7 @@ const DocumentCard = ({ doc }) => {
         </button>
       </div>
     </div>
+   </div>
   );
 };
 
@@ -107,8 +112,9 @@ const DownloadPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 sm:p-8 font-sans">
+      <Logo/>
       <script src="https://cdn.tailwindcss.com"></script>
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto mt-10">
         <header className="mb-8">
           <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
             Product Documentation

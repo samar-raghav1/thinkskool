@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMail, FiPhone, FiCalendar, FiX } from 'react-icons/fi'; // Added FiX for close button
+import { FiMail, FiPhone, FiCalendar, FiX, FiArrowLeft } from 'react-icons/fi'; // Added FiX for close button
 import api from '../api/axios';
+import { LampContainer } from './ui/lamp';
 
 // --- Modal Component ---
 const BookingModal = ({ isOpen, onClose, onBook }) => {
@@ -150,87 +151,106 @@ const Contact = () => {
     };
 
     return (
-        <section className="py-16 md:py-24 bg-gray-900 text-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <motion.div
-                    className="bg-gray-800 p-8 md:p-16 rounded-2xl shadow-2xl text-center"
-                    variants={sectionVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.4 }}
+        <LampContainer className="pt-32 md:pt-48">
+              <motion.div
+                initial={{ opacity: 0.5, y: 100 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.3,
+                  duration: 0.8,
+                  ease: "easeInOut",
+                }}
+                className="flex flex-col items-center justify-center text-center px-4 mt-52"
+              >
+           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"> {/* <-- Added 'relative' here to contain the absolute button */}
+    <motion.div
+        className="bg-gray-800 p-8 md:p-16 rounded-2xl shadow-2xl text-center relative" // <-- Added 'relative' just in case, though the parent is handling it.
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.4 }}
+    >
+        {/* NEW BACK BUTTON ELEMENT */}
+        <a
+            href="/" // Change this to use a routing component (e.g., <Link to="/" />) if applicable
+            className="absolute top-4 left-4 md:top-8 md:left-8 text-white hover:text-blue-400 transition duration-300 p-3 rounded-full bg-gray-700/50 hover:bg-gray-700 z-10"
+            aria-label="Go back to home"
+        >
+            <FiArrowLeft className="text-2xl" />
+        </a>
+
+        {/* Header/Text content... (omitted for brevity) */}
+        <motion.h2
+            className="text-sm uppercase tracking-widest font-semibold text-blue-400 mb-2"
+            variants={itemVariants}
+        >
+            CONTACT
+        </motion.h2>
+        <motion.h1
+            className="text-4xl md:text-5xl font-extrabold mb-6"
+            variants={itemVariants}
+        >
+            Contact Us 👋
+        </motion.h1>
+        <motion.p
+            className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto"
+            variants={itemVariants}
+        >
+            Whether you’re a school looking to integrate STEM education or a student eager to learn, our team is ready to help.
+        </motion.p>
+
+        {/* Contact Details Grid... (omitted for brevity) */}
+        <motion.div
+            className="flex justify-center flex-wrap gap-8 mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ staggerChildren: 0.2 }}
+        >
+            {/* Email */}
+            <motion.div
+                className="flex items-center space-x-3"
+                variants={itemVariants}
+            >
+                <FiMail className="text-2xl text-blue-400" />
+                <a
+                    href="mailto:info@thinkskool.in"
+                    className="text-lg font-medium text-white hover:text-blue-300 transition"
                 >
-                    {/* Header/Text content... (omitted for brevity) */}
-                    <motion.h2
-                        className="text-sm uppercase tracking-widest font-semibold text-blue-400 mb-2"
-                        variants={itemVariants}
-                    >
-                        CONTACT
-                    </motion.h2>
-                    <motion.h1
-                        className="text-4xl md:text-5xl font-extrabold mb-6"
-                        variants={itemVariants}
-                    >
-                        Contact Us 👋
-                    </motion.h1>
-                    <motion.p
-                        className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto"
-                        variants={itemVariants}
-                    >
-                        Whether you’re a school looking to integrate STEM education or a student eager to learn, our team is ready to help.
-                    </motion.p>
+                    info@thinkskool.in
+                </a>
+            </motion.div>
 
-                    {/* Contact Details Grid... (omitted for brevity) */}
-                    <motion.div
-                        className="flex justify-center flex-wrap gap-8 mb-12"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ staggerChildren: 0.2 }}
-                    >
-                        {/* Email */}
-                        <motion.div
-                            className="flex items-center space-x-3"
-                            variants={itemVariants}
-                        >
-                            <FiMail className="text-2xl text-blue-400" />
-                            <a
-                                href="mailto:info@thinkskool.in"
-                                className="text-lg font-medium text-white hover:text-blue-300 transition"
-                            >
-                                info@thinkskool.in
-                            </a>
-                        </motion.div>
+            {/* Phone */}
+            <motion.div
+                className="flex items-center space-x-3"
+                variants={itemVariants}
+            >
+                <FiPhone className="text-2xl text-blue-400" />
+                <a
+                    href="tel:+918527740849"
+                    className="text-lg font-medium text-white hover:text-blue-300 transition"
+                >
+                    +91-8527740849
+                </a>
+            </motion.div>
+        </motion.div>
 
-                        {/* Phone */}
-                        <motion.div
-                            className="flex items-center space-x-3"
-                            variants={itemVariants}
-                        >
-                            <FiPhone className="text-2xl text-blue-400" />
-                            <a
-                                href="tel:+918527740849"
-                                className="text-lg font-medium text-white hover:text-blue-300 transition"
-                            >
-                                +91-8527740849
-                            </a>
-                        </motion.div>
-                    </motion.div>
+        {/* Button: Book a Demo Call - Now opens the modal */}
+        <motion.button
+            onClick={() => setIsModalOpen(true)} // Toggle modal visibility
+            className="inline-flex items-center space-x-3 px-10 py-4 rounded-full text-xl font-bold transition-all duration-300 transform shadow-lg"
+            style={{ backgroundColor: '#FF8C00', color: '#1F2937' }} // Setting the required orange color
+            whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(255, 140, 0, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
+            variants={itemVariants}
+        >
+            <FiCalendar className="text-2xl" />
+            <span>Book a Demo Call</span>
+        </motion.button>
 
-                    {/* Button: Book a Demo Call - Now opens the modal */}
-                    <motion.button
-                        onClick={() => setIsModalOpen(true)} // Toggle modal visibility
-                        className="inline-flex items-center space-x-3 px-10 py-4 rounded-full text-xl font-bold transition-all duration-300 transform shadow-lg"
-                        style={{ backgroundColor: '#FF8C00', color: '#1F2937' }} // Setting the required orange color
-                        whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(255, 140, 0, 0.4)" }}
-                        whileTap={{ scale: 0.95 }}
-                        variants={itemVariants}
-                    >
-                        <FiCalendar className="text-2xl" />
-                        <span>Book a Demo Call</span>
-                    </motion.button>
-
-                </motion.div>
-            </div>
+    </motion.div>
+</div>
 
             {/* The Booking Modal */}
             <AnimatePresence>
@@ -242,7 +262,9 @@ const Contact = () => {
                     />
                 )}
             </AnimatePresence>
-        </section>
+            </motion.div>
+            </LampContainer>
+       
     );
 };
 

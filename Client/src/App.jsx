@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom'; // Import useLocation
 
 // Layout Components (Always visible or shared)
-import Navbar from './components/Navbar';
+
 import Footer from './components/Footer';
 
 // Static Marketing Page Components (Should only be visible on the Home route)
@@ -34,18 +34,30 @@ import { HeroParallaxDemo } from './components/HeroParallaxDemo';
 
 import { TextRevealCardPreview } from './components/TextRevealCardPreview';
 
+import Logo from './components/Logo.jsx';
+import DownloadButton from './components/DownloadButton.jsx';
+
 // --- Home Page Component ---
-const HomePage = () => (
-    <>
-        <div className=''>
-            <Hero />
+const HomePage = () => {
+  return (
+    <div>
+            {/* 1. Fixed Logo at Top Left (z-50) */}
+            <Logo/>
+
+            {/* 2. Fixed Download Button at Bottom Right (z-50) */}
+            <DownloadButton/>
+
+            {/* 3. Scrollable Content (The rest of your components) */}
+            <div className='relative pt-20'> 
+                <Hero />
+                <HeroParallaxDemo />
+                <TextRevealCardPreview />
+                <DetailedProgram />
+                <About />
+            </div>
         </div>
-        <HeroParallaxDemo />
-        <TextRevealCardPreview />
-        <DetailedProgram />
-        <About />
-    </>
-);
+  )
+};
 
 const App = () => {
 
@@ -70,7 +82,8 @@ const App = () => {
         '/student/signup',
         '/mentor/signup',
         '/admin/signup',
-        '/downloads'
+        '/downloads',
+        '/contact'
 
     ];
 
@@ -82,7 +95,7 @@ const App = () => {
     return (
         <div>
             {/* Conditional Navbar Rendering */}
-            {!shouldHideLayout && <Navbar />}
+            
 
             {/* Main Routes */}
             <Routes>
