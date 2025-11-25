@@ -90,7 +90,7 @@ const AdminLoginPage = () => {
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="flex items-center justify-center space-x-3 pb-4">
             <Shield className="text-purple-400 w-6 h-6" />
-            <h3 className="text-2xl font-bold text-white">Admin Login (Local)</h3>
+            <h3 className="text-2xl font-bold text-white">Admin Login</h3>
           </div>
 
           <div className="space-y-4">
@@ -134,15 +134,6 @@ const AdminLoginPage = () => {
               <><LogIn className="w-5 h-5" /> Log In as Admin</>
             )}
           </button>
-
-          <div className="text-center mt-4">
-            <p className="text-sm text-slate-400">
-              Don't have an account?{' '}
-              <Link to="/admin/signup" className="text-purple-400 font-semibold hover:text-purple-300 hover:underline">
-                Sign Up
-              </Link>
-            </p>
-          </div>
         </form>
       </div>
     </div>

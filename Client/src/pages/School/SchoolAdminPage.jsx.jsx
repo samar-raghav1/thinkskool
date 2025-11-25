@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
-import { Users, BookOpen, FileText, Activity, TrendingUp, UserCheck, Shield } from 'lucide-react';
+import { Users, BookOpen, FileText, Activity, TrendingUp, UserCheck, Shield, Menu, X } from 'lucide-react';
 import { PortalContext } from '../../components/Context/PortalProvider';
 import { GradientCard, StatCard } from '../../components/dashboard/GradientCard';
 import { NotificationPanel } from '../../components/dashboard/NotificationPanel';
@@ -13,6 +13,13 @@ const SchoolAdminPage = () => {
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const { isConnected, notifications } = useSocket(user?._id);
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Function to toggle the menu state
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   useEffect(() => {
     fetchDashboardData();
@@ -38,7 +45,7 @@ const SchoolAdminPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6">
+    <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
@@ -47,27 +54,52 @@ const SchoolAdminPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-sm font-semibold text-purple-400"
           >
-            Welcome back, {user?.name}!
+            Welcome!
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl font-extrabold text-white mt-1 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
+            className="text-4xl font-extrabold text-white mt-1 bg-clip-text bg-linear-to-r from-purple-400 to-pink-600"
           >
             Admin Dashboard
           </motion.h1>
         </div>
         <div className="flex items-center gap-4">
-          {isConnected && (
-            <div className="flex items-center gap-2 px-3 py-1 bg-green-500/20 border border-green-500/50 rounded-full">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-              <span className="text-xs text-green-400">Live</span>
-            </div>
-          )}
-          <NotificationPanel notifications={notifications} />
-          <LogoutButton />
-        </div>
+
+      {/* 2. Toggle Button: Only visible on small screens (up to md breakpoint) */}
+      <button
+        onClick={toggleMenu}
+        className="md:hidden p-2 text-white rounded-full bg-slate-800 hover:bg-slate-700 transition"
+        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+      >
+        {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+      </button>
+
+      {/* 3. Conditional Rendering and Responsive Classes */}
+      {/* - hidden: Hides the container by default (on small screens).
+        - md:flex: Overrides 'hidden' and uses flex layout on medium screens and larger.
+        - flex-col: Stacks items vertically when the menu is manually opened (on small screen).
+        - md:flex-row: Switches back to horizontal on medium screens.
+        - ${isMenuOpen ? 'flex' : 'hidden'}: Shows the menu content if the button is clicked.
+      */}
+      <div 
+        className={`
+          flex items-center gap-4 
+          ${isMenuOpen ? 'absolute top-16 right-4 p-4 bg-slate-800 rounded-lg shadow-xl flex-col z-50 min-w-[200px]' : 'hidden'} 
+          md:flex md:flex-row md:static md:p-0 md:bg-transparent
+        `}
+      >
+        {isConnected && (
+          <div className="flex items-center gap-2 px-3 py-1 bg-green-500/20 border border-green-500/50 rounded-full">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+            <span className="text-xs text-green-400">Live</span>
+          </div>
+        )}
+        <NotificationPanel notifications={notifications} />
+        <LogoutButton />
+      </div>
+    </div>
       </div>
 
       {/* Stats Grid */}
