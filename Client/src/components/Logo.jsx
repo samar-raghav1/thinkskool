@@ -37,12 +37,12 @@ const Logo = () => {
                 {/* Login Button (Right Side) */}
                 {/* Conditional rendering: Only show the button when 'hasScrolled' is true */}
                 {hasScrolled && (
-                    <div className="hidden md:block"> {/* Hide on small screens, show on medium and large screens */}
+                    <div className=" md:block mr-20"> {/* Hide on small screens, show on medium and large screens */}
                         <button
-                            onClick={()=>navigate('/role')} // Use <Link to="/login"> if using a router
-                            className="bg-brand-orange text-white px-4 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transition duration-300 ease-in-out cursor-pointer"
+                          onClick={() => navigate('/role')}
+                          className="bg-brand-orange text-white px-4 py-2 rounded-full font-semibold  shadow-lg hover:shadow-xl transition duration-300 ease-in-out cursor-pointer "
                         >
-                            Login
+                          Login
                         </button>
                     </div>
                 )}

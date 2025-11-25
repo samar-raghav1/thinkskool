@@ -18,14 +18,14 @@ const MainLayout = ({ children }) => {
       className="flex items-center space-x-2 p-2 bg-gray-100 rounded-full text-sm font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
     >
       {React.createElement(targetIcon, { className: "w-4 h-4 text-blue-600" })}
-      <span>Switch to **{targetRole.charAt(0).toUpperCase() + targetRole.slice(1)} View**</span>
+      <span>Switch to {targetRole.charAt(0).toUpperCase() + targetRole.slice(1)} View</span>
     </button>
   );
 };
    
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Sidebar */}
+      
       <StudentSidebar />
 
       {/* Backdrop for Mobile */}

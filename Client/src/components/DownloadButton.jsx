@@ -7,7 +7,7 @@ const DownloadButton = () => {
       const customOrange = '#FF8C00';
     const navigate = useNavigate();
   return (
-     <div className="fixed bottom-6 right-6 z-50">
+     <div className="fixed bottom-6 right-6 z-50 mr-20">
                 <Tooltip text="Download catalog">
                     <button
                         // NOTE: Ensure navigate and setIsMenuOpen functions are available in this scope
