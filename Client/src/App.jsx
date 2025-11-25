@@ -27,7 +27,7 @@ import renderPage from './pages/Student/renderPage.jsx';
 import { PortalContext } from './components/Context/PortalProvider.jsx';
 import StudentSignupPage from './pages/Student/StudentSignupPage.jsx';
 import MentorSignupPage from './pages/Mentor/MentorSignupPage.jsx';
-import AdminSignupPage from './pages/School/AdminSignupPage.jsx';
+
 
 
 import { HeroParallaxDemo } from './components/HeroParallaxDemo';
@@ -125,7 +125,6 @@ const App = () => {
                 {/*Signup*/}
                 <Route path='/student/signup' element={<StudentSignupPage />} />
                 <Route path='/mentor/signup' element={<MentorSignupPage />} />
-                <Route path='/admin/signup' element={<AdminSignupPage />} />
             </Routes>
 
             {/* Conditional Footer Rendering */}

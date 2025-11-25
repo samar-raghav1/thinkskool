@@ -18,6 +18,7 @@ export const PortalProvider = ({ children }) => {
   const [role, setRole] = useState(user?.role || 'student');
   const [currentView, setCurrentView] = useState('Dashboard');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+ 
 
   // Update user when localStorage changes
   useEffect(() => {
@@ -38,6 +39,7 @@ export const PortalProvider = ({ children }) => {
     localStorage.setItem('userInfo', JSON.stringify(userData));
   };
 
+  
   // Function to logout
   const logout = () => {
     setUser(null);
@@ -59,7 +61,8 @@ export const PortalProvider = ({ children }) => {
     setView,
     setIsSidebarOpen,
     updateUser,
-    logout
+    logout,
+    
   };
 
   return (

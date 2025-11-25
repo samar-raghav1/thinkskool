@@ -1,11 +1,17 @@
 import { Shield, LogIn, LogOutIcon } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import api from '../../api/axios';
+// Removed 'api' import since we are bypassing the API call
+// import api from '../../api/axios';
 import { DottedGlowBackground } from '../../components/ui/dotted-background';
 
 const LOGO_BLUE = '#007FFF';
 const LOGO_ORANGE = '#FF8C00';
+
+// Define the expected credentials from environment variables
+// Note: process.env access depends on your bundler (e.g., vite uses import.meta.env)
+const ADMIN_EMAIL = import.meta.env.REACT_APP_ADMIN_EMAIL || "thinkskool@gmail.com";
+const ADMIN_PASSWORD = import.meta.env.REACT_APP_ADMIN_PASSWORD || "thinkskool@123";
 
 const AdminLoginPage = () => {
   const [email, setEmail] = useState('');
@@ -17,29 +23,41 @@ const AdminLoginPage = () => {
     navigate('/role');
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!email || !password) return;
 
     setIsSubmitting(true);
 
-    try {
-      const response = await api.post('/auth/login', {
-        email,
-        password,
+    // --- MODIFIED AUTHENTICATION LOGIC ---
+    // Perform client-side check against environment variables
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      // **Warning: No token or proper user info is generated here.**
+      // You must decide what to store to simulate a successful login.
+      // For a simple bypass, we simulate a token/user info.
+
+      // SIMULATING a successful login/session (INSECURE)
+      localStorage.setItem('token', 'local-admin-token');
+      localStorage.setItem('userInfo', JSON.stringify({
+        email: ADMIN_EMAIL,
         role: 'school-admin',
-      });
+        // Add other necessary fields your app expects
+      }));
 
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userInfo', JSON.stringify(response.data));
+      // Navigate after a small delay to show "Logging in..." state
+      setTimeout(() => {
+        setIsSubmitting(false);
+        navigate('/school-admin');
+      }, 1000); // Simulate network latency
 
-      navigate('/school-admin');
-    } catch (error) {
-      console.error('Login failed:', error.response?.data?.message || error.message);
-      alert(error.response?.data?.message || 'Login failed');
-    } finally {
-      setIsSubmitting(false);
+    } else {
+      // Local credentials mismatch
+      setTimeout(() => {
+        setIsSubmitting(false);
+        alert('Local Admin Login Failed: Invalid email or password.');
+      }, 1000); // Simulate network latency
     }
+    // --- END MODIFIED AUTHENTICATION LOGIC ---
   };
 
   return (
@@ -72,7 +90,7 @@ const AdminLoginPage = () => {
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="flex items-center justify-center space-x-3 pb-4">
             <Shield className="text-purple-400 w-6 h-6" />
-            <h3 className="text-2xl font-bold text-white">Admin Login</h3>
+            <h3 className="text-2xl font-bold text-white">Admin Login (Local)</h3>
           </div>
 
           <div className="space-y-4">
@@ -97,10 +115,10 @@ const AdminLoginPage = () => {
           <button
             type="submit"
             disabled={!email || !password || isSubmitting}
-            className={`flex items-center justify-center gap-2 p-3 font-semibold text-white rounded-lg transition-all duration-300 
+            className={`flex items-center justify-center gap-2 p-3 font-semibold text-white rounded-lg transition-all duration-300
                             ${(!email || !password || isSubmitting)
                 ? 'bg-slate-700 cursor-not-allowed'
-                : 'bg-gradient-to-r from-purple-600 to-violet-600 hover:shadow-xl hover:shadow-purple-500/50 hover:scale-[1.02]'
+                : 'bg-linear-to-r from-purple-600 to-violet-600 hover:shadow-xl hover:shadow-purple-500/50 hover:scale-[1.02]'
               }
                         `}
           >

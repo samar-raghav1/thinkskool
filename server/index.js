@@ -30,7 +30,14 @@ const io = new Server(server, {
 // Make io accessible in routes
 app.set('io', io);
 
-app.use(cors());
+app.use(cors(
+     {
+    origin: process.env.FRONTEND_URL || "*",
+    methods: ["GET", "POST"],
+    credentials: true,
+    allowedHeaders: ["Authorization", "Content-Type", "Origin"],
+  }
+));
 app.use(express.json());
 
 // Routes
