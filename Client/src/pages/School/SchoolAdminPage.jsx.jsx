@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { Users, BookOpen, FileText, Activity, TrendingUp, UserCheck, Shield, Menu, X } from 'lucide-react';
