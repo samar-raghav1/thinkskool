@@ -13,34 +13,7 @@ const initialDocuments = [
     url: "../assets/pdf/dummy.pdf",
     Icon: FileText,
     color: 'bg-indigo-500'
-  },
-  { 
-    id: 2, 
-    title: "Installation Guide", 
-    description: "Step-by-step instructions for quick and easy setup.", 
-    fileName: "installation_guide.pdf", 
-    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    Icon: FolderOpen,
-    color: 'bg-green-500'
-  },
-  { 
-    id: 3, 
-    title: "Warranty and Terms", 
-    description: "Detailed information on product warranties and service terms.", 
-    fileName: "warranty_terms.pdf", 
-    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    Icon: FileText,
-    color: 'bg-red-500'
-  },
-  { 
-    id: 4, 
-    title: "Data Sheet: Model X-9000", 
-    description: "Technical specifications and performance metrics.", 
-    fileName: "data_sheet_x9000.pdf", 
-    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-    Icon: FlaskConical,
-    color: 'bg-yellow-500'
-  },
+  }
 ];
 
 /**
@@ -130,9 +103,7 @@ const DownloadPage = () => {
           ))}
         </main>
         
-        <footer className="mt-10 pt-6 border-t border-gray-200 text-center text-sm text-gray-400">
-            Note: Dummy PDF URLs are used for demonstration purposes.
-        </footer>
+       
       </div>
     </div>
   );
