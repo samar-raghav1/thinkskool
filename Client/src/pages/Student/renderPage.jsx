@@ -6,8 +6,8 @@ import PerformanceReportPage from "./PerformanceReportPage";
 import ProgressTrackingPage from "./ProgressTrackingPage";
 import RecordingsPage from "./RecordingPage";
 
-const renderPage = (currentView, role) => {
-  if (role === 'student') {
+const renderPage = (currentView, system) => {
+  if (system === 'student') {
     switch (currentView) {
       case 'Dashboard':
         return <StudentDashboard />;
@@ -21,7 +21,7 @@ const renderPage = (currentView, role) => {
       default:
         return <StudentDashboard />;
     }
-  } else if (role === 'parent') {
+  } else if (system === 'parent') {
     switch (currentView) {
       case 'Dashboard':
         return <ParentDashboard />;

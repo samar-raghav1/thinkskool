@@ -5,12 +5,12 @@ import { Menu, User, Users } from "lucide-react";
 
 const MainLayout = ({ children }) => {
        const usePortal = () => useContext(PortalContext);
-  const { isSidebarOpen, setIsSidebarOpen, role } = usePortal();
+  const { isSidebarOpen, setIsSidebarOpen, system } = usePortal();
 
   const RoleSwitcher = () => {
-  const { role, switchRole } = usePortal();
-  const targetRole = role === 'student' ? 'parent' : 'student';
-  const targetIcon = role === 'student' ? Users : User;
+  const { system, switchRole } = usePortal();
+  const targetRole = system === 'student' ? 'parent' : 'student';
+  const targetIcon = system === 'student' ? Users : User;
 
   return (
     <button
@@ -54,7 +54,7 @@ const MainLayout = ({ children }) => {
 
           <div className="flex items-center space-x-4">
             <RoleSwitcher /> {/* <-- Role Switcher Added Here */}
-            <div className={`p-2 rounded-full ${role === 'student' ? 'bg-blue-100 text-blue-700' : 'bg-indigo-100 text-indigo-700'}`}>
+            <div className={`p-2 rounded-full ${system === 'student' ? 'bg-blue-100 text-blue-700' : 'bg-indigo-100 text-indigo-700'}`}>
                 <User className="w-5 h-5" />
             </div>
             <span className="text-sm font-medium text-gray-700 hidden sm:inline">{usePortal().user?.name}</span>

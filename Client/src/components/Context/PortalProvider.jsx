@@ -15,7 +15,7 @@ export const PortalProvider = ({ children }) => {
   };
 
   const [user, setUser] = useState(getStoredUser());
-  const [role, setRole] = useState(user?.role || 'student');
+  const [system, setSystem] = useState(user?.system || 'student');
   const [currentView, setCurrentView] = useState('Dashboard');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
  
@@ -25,7 +25,7 @@ export const PortalProvider = ({ children }) => {
     const handleStorageChange = () => {
       const updatedUser = getStoredUser();
       setUser(updatedUser);
-      setRole(updatedUser?.role || 'student');
+      setSystem(updatedUser?.system || 'student');
     };
 
     window.addEventListener('storage', handleStorageChange);
@@ -35,7 +35,7 @@ export const PortalProvider = ({ children }) => {
   // Function to update user (useful after login/signup)
   const updateUser = (userData) => {
     setUser(userData);
-    setRole(userData?.role || 'student');
+    setSystem(userData?.system || 'student');
     localStorage.setItem('userInfo', JSON.stringify(userData));
   };
 
@@ -43,7 +43,7 @@ export const PortalProvider = ({ children }) => {
   // Function to logout
   const logout = () => {
     setUser(null);
-    setRole('student');
+    setSystem('student');
     localStorage.removeItem('userInfo');
     localStorage.removeItem('token');
   };
@@ -53,15 +53,21 @@ export const PortalProvider = ({ children }) => {
     setIsSidebarOpen(false); // Close sidebar on mobile after navigation
   };
 
+   const switchRole = () => {
+        setSystem(prevSystem => (prevSystem === 'student' ? 'parent' : 'student'));
+        setIsSidebarOpen(false); 
+    };
+
   const contextValue = {
     user,
-    role,
+    system,
     currentView,
     isSidebarOpen,
     setView,
     setIsSidebarOpen,
     updateUser,
     logout,
+    switchRole
     
   };
 

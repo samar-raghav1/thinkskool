@@ -36,6 +36,7 @@ import { TextRevealCardPreview } from './components/TextRevealCardPreview';
 
 import Logo from './components/Logo.jsx';
 import DownloadButton from './components/DownloadButton.jsx';
+import ParentDashboard from './components/Student/ParentDashboard.jsx';
 
 // --- Home Page Component ---
 const HomePage = () => {
@@ -83,7 +84,8 @@ const App = () => {
         '/mentor/signup',
         '/admin/signup',
         '/downloads',
-        '/contact'
+        '/contact',
+        '/parent-dashboard'
 
     ];
 
@@ -107,8 +109,9 @@ const App = () => {
                 {/* Authentication & Dashboard Routes (Hidden Layout) */}
                 <Route path='/role' element={<ChooseRole />} />
                 <Route path='/student' element={<MainLayout>
-                    {renderPage(usePortal().currentView, usePortal().role)}
+                    {renderPage(usePortal().currentView, usePortal().system)}
                 </MainLayout>} />
+                <Route path='/parent-dashboard' element={<ParentDashboard/>}/>
                 <Route path='/mentor' element={<MentorDashboard />} />
                 <Route path='/school-admin' element={<SchoolAdminPage />} />
                 <Route path='/downloads' element={<DownloadPage />} />
