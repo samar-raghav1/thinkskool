@@ -1,112 +1,107 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { FileText, FolderOpen, FlaskConical, Download } from 'lucide-react';
-import Logo from '../components/Logo';
+import { FileText, Eye } from 'lucide-react'; 
 
-// Mock data, replacing original icon references with Lucide icons
+// --- Data for demonstration ---
 const initialDocuments = [
   { 
     id: 1, 
-    title: "Brochure", 
+    title: "Course Brochure", 
     description: "See what is in the course", 
+    // The user has requested this specific relative path. 
+    // NOTE: For this to work in a real deployed environment, 'Brochure.pdf' MUST be
+    // accessible at the root of your server, often by placing it in the /public folder 
+    // inside the 'assets/pdf' subdirectory.
+    url: "/assets/pdf/Brochure.pdf", 
     fileName: "Brochure.pdf", 
-    url: "../assets/pdf/dummy.pdf",
     Icon: FileText,
     color: 'bg-indigo-500'
   }
 ];
 
 /**
- * Handles the dual action: first opens the document in a new tab,
- * then triggers the download shortly after.
+ * Handles the view action: fetches the document content as a Blob 
+ * and opens the Blob URL in a new tab for viewing only.
  * @param {object} doc - The document object containing url and fileName.
  */
-const handleViewAndDownload = (doc) => {
-  // 1. Open the PDF in a new tab/window for viewing
-  const newWindow = window.open(doc.url, '_blank', 'noopener,noreferrer');
-
-  // 2. Wait a moment before triggering the download. 
-  // This small delay (100ms) helps ensure the browser processes the 'open' command first.
-  setTimeout(() => {
-    try {
-      // 3. Trigger the download using a temporary anchor element
-      const link = document.createElement('a');
-      link.href = doc.url;
-      link.download = doc.fileName; // This attribute forces a download dialog
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      console.log(`Download triggered for: ${doc.fileName}`);
-    } catch (error) {
-      // Fallback for strict browser environments
-      console.error("Could not trigger download. The file may only be opened for viewing.", error);
-    }
-  }, 100);
-};
-
-const DocumentCard = ({ doc }) => {
-  const IconComponent = doc.Icon;
-
-  return (
-   <div>
+const handleViewAndDownload = async (doc) => {
+  try {
+    // 1. Fetch the file content as raw binary data (Blob)
+    const response = await fetch(doc.url);
     
-     <div className="flex flex-col bg-white border border-gray-100 rounded-xl shadow-lg hover:shadow-xl transition duration-300 p-6 space-y-4 ">
-     
-      <div className="flex items-center space-x-4">
-        <div className={`p-3 rounded-full ${doc.color} text-white`}>
-          <IconComponent className="w-6 h-6" />
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold text-gray-800">{doc.title}</h3>
-          <p className="text-sm text-gray-500">{doc.description}</p>
-        </div>
-      </div>
-      
-      <div className="flex items-center justify-between pt-2 border-t border-gray-50">
-        <span className="text-sm text-blue-600 font-medium truncate max-w-[60%]">
-          {doc.fileName}
-        </span>
-        <button
-          onClick={() => handleViewAndDownload(doc)}
-          className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-md hover:bg-blue-700 transition duration-150 transform hover:scale-[1.02] active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          aria-label={`View and download ${doc.title}`}
-        >
-          <Download className="w-4 h-4" />
-          <span>View & Download</span>
-        </button>
-      </div>
-    </div>
-   </div>
-  );
+    // Check if the response is valid
+    if (!response.ok) {
+        // Log a specific error if the fetch fails (e.g., 404 Not Found)
+        console.error(`Failed to fetch document from ${doc.url}. Status: ${response.status} ${response.statusText}`);
+        // Fallback to the original URL if fetch fails
+        window.open(doc.url, '_blank', 'noopener,noreferrer');
+        return; 
+    }
+    
+    const blob = await response.blob();
+    
+    // Check content type to be sure it's a PDF
+    if (blob.type !== 'application/pdf') {
+        console.warn(`File fetched is not a PDF (MIME type: ${blob.type}). Attempting to open original URL.`);
+        // Fallback to the original URL if type check fails
+        window.open(doc.url, '_blank', 'noopener,noreferrer');
+        return;
+    }
+
+    // 2. Create a temporary client-side URL for the Blob
+    const blobUrl = URL.createObjectURL(blob);
+
+    // 3. Open the Blob URL in a new tab/window for viewing
+    window.open(blobUrl, '_blank', 'noopener,noreferrer');
+    
+    // The object URL is not revoked here as the new window needs it.
+
+    console.log(`View successfully triggered for: ${doc.fileName}`);
+
+  } catch (error) {
+    console.error("Critical error during fetch or view process:", error);
+    // Final fallback: try to open the original URL
+    window.open(doc.url, '_blank', 'noopener,noreferrer');
+  }
 };
 
-const DownloadPage = () => {
-  const [documents] = useState(initialDocuments);
+// --- Demonstration Component ---
 
-  return (
-    <div className="min-h-screen bg-gray-50 p-4 sm:p-8 font-sans">
-      <Logo/>
-      <script src="https://cdn.tailwindcss.com"></script>
-      <div className="max-w-4xl mx-auto mt-10">
-        <header className="mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
-            Product Documentation
-          </h1>
-          <p className="mt-2 text-lg text-gray-500">
-            Click any document to view the PDF and automatically start the download.
-          </p>
-        </header>
+const DocumentDownloadHandler = () => {
+    const [documents] = useState(initialDocuments);
 
-        <main className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {documents.map((doc) => (
-            <DocumentCard key={doc.id} doc={doc} />
-          ))}
-        </main>
-        
-       
-      </div>
-    </div>
-  );
+    return (
+        <div className="p-8 max-w-lg mx-auto bg-white shadow-xl rounded-xl mt-10">
+            <h2 className="text-3xl font-extrabold text-gray-900 mb-6">Course Documents</h2>
+            
+            {documents.map(doc => (
+                <div 
+                    key={doc.id} 
+                    className="flex items-center justify-between p-4 mb-4 border border-gray-200 rounded-lg transition duration-300 hover:shadow-lg"
+                >
+                    <div className="flex items-center space-x-4">
+                        <div className={`p-3 rounded-full ${doc.color} text-white`}>
+                            <doc.Icon className="w-6 h-6" />
+                        </div>
+                        <div>
+                            <p className="text-lg font-semibold text-gray-800">{doc.title}</p>
+                            <p className="text-sm text-gray-500">{doc.description}</p>
+                        </div>
+                    </div>
+
+                    <button
+                        onClick={() => handleViewAndDownload(doc)}
+                        className="flex items-center space-x-2 px-4 py-2 bg-blue-500 text-white font-medium rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 text-sm"
+                        title="View Document"
+                    >
+                        <Eye className="w-4 h-4" />
+                        <span className="hidden sm:inline">View File</span>
+                    </button>
+                </div>
+            ))}
+            
+           
+        </div>
+    );
 };
 
-export default DownloadPage;
+export default DocumentDownloadHandler;

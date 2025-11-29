@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@monaco-editor/react": "^4.7.0",
     "@tabler/icons-react": "^3.35.0",
     "@tailwindcss/vite": "^4.1.17",
@@ -22,13 +25,15 @@
     "react": "^19.2.0",
     "react-circular-progressbar": "^2.2.0",
     "react-dom": "^19.2.0",
+    "react-hot-toast": "^2.6.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.9.5",
     "react-split": "^2.0.14",
     "recharts": "^3.4.1",
     "socket.io-client": "^4.8.1",
     "tailwind-merge": "^3.4.0",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "^4.1.17",
+    "toast": "^0.5.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
