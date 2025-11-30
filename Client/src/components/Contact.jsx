@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMail, FiPhone, FiCalendar, FiX, FiArrowLeft } from 'react-icons/fi'; // Added FiX for close button
-import api from '../api/axios';
+import { FiMail, FiPhone, FiCalendar, FiX, FiArrowLeft } from 'react-icons/fi';
+// Make sure this path and the baseURL inside it are correct!
+import api from '../api/axios'; 
 import { LampContainer } from './ui/lamp';
 
-// --- Modal Component ---
+// --- Modal Component (No changes needed here) ---
 const BookingModal = ({ isOpen, onClose, onBook }) => {
-    // State for form data
+    // ... (rest of BookingModal component code is unchanged) ...
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
+    const [email, setEmail] = useState('');
 
-    // Framer Motion variants for the modal backdrop and container
     const backdropVariants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1 },
@@ -28,14 +29,11 @@ const BookingModal = ({ isOpen, onClose, onBook }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Check if both fields are filled
         if (!name || !date) {
             alert("Please enter your name and select a date/time.");
             return;
         }
-        // Send data to the parent component's booking handler
         onBook({ name, date });
-        // Clear form and close modal
         setName('');
         setDate('');
         onClose();
@@ -50,12 +48,12 @@ const BookingModal = ({ isOpen, onClose, onBook }) => {
             initial="hidden"
             animate="visible"
             exit="hidden"
-            onClick={onClose} // Close when clicking backdrop
+            onClick={onClose}
         >
             <motion.div
                 className="bg-gray-700 w-full max-w-md p-6 rounded-xl shadow-2xl relative"
                 variants={modalVariants}
-                onClick={e => e.stopPropagation()} // Prevent closing when clicking inside the modal
+                onClick={e => e.stopPropagation()}
             >
                 <button
                     onClick={onClose}
@@ -83,10 +81,22 @@ const BookingModal = ({ isOpen, onClose, onBook }) => {
                         />
                     </div>
 
-                    {/* Date/Time Input (Placeholder for Calendar) */}
+                    <div>
+                        <label htmlFor="date" className="block text-sm font-medium text-gray-300 mb-1">Email Id</label>
+                        <input
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder='enter your email'
+                            className="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:ring-blue-500 focus:border-blue-500"
+                            required
+                        />
+                    </div>
+
+                    {/* Date/Time Input */}
                     <div>
                         <label htmlFor="date" className="block text-sm font-medium text-gray-300 mb-1">Preferred Date & Time</label>
-                        {/* NOTE: In a real application, you would replace this with a powerful date/time picker library (e.g., react-datepicker) */}
                         <input
                             type="datetime-local"
                             id="date"
@@ -96,6 +106,7 @@ const BookingModal = ({ isOpen, onClose, onBook }) => {
                             required
                         />
                     </div>
+                    
 
                     {/* Submit Button */}
                     <button
@@ -113,23 +124,30 @@ const BookingModal = ({ isOpen, onClose, onBook }) => {
     );
 };
 
-// --- Contact Component ---
+// --- Contact Component (Updated handleBooking) ---
 const Contact = () => {
-    // State to control modal visibility
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false); // New state for loading/disable button
 
     // Function to handle the actual booking submission
-    const handleBooking = async ({ name, date }) => {
+    const handleBooking = async ({ name, date ,email }) => {
+        setIsSubmitting(true);
         try {
-            await api.post('/contact/book-demo', { name, date });
-            alert(`Thank you, ${name}! Your demo call is tentatively booked for ${new Date(date).toLocaleString()}. We will be in touch shortly.`);
+            const response = await api.post('/contact/book-demo', { name, date ,email });
+            
+            // Success response from backend
+            alert(`🎉 Success! ${response.data.message}\nYour booking details:\nName: ${name}\nDate: ${new Date(date).toLocaleString()}\n email:${email}`);
+            
         } catch (error) {
             console.error('Booking failed:', error);
-            alert('Failed to book demo. Please try again.');
+            const errorMessage = error.response?.data?.message || 'Failed to book demo. Please check the server status.';
+            alert(`❌ Booking Failed: ${errorMessage}`);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
-    // Framer Motion variants for section animation
+    // Framer Motion variants... (rest of the variants are unchanged)
     const sectionVariants = {
         hidden: { opacity: 0, y: 50 },
         visible: {
@@ -144,7 +162,6 @@ const Contact = () => {
         },
     };
 
-    // Framer Motion variants for staggered details
     const itemVariants = {
         hidden: { opacity: 0, x: -20 },
         visible: { opacity: 1, x: 0 },
@@ -152,119 +169,119 @@ const Contact = () => {
 
     return (
         <LampContainer className="pt-32 md:pt-48">
-              <motion.div
+            <motion.div
                 initial={{ opacity: 0.5, y: 100 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{
-                  delay: 0.3,
-                  duration: 0.8,
-                  ease: "easeInOut",
+                    delay: 0.3,
+                    duration: 0.8,
+                    ease: "easeInOut",
                 }}
                 className="flex flex-col items-center justify-center text-center px-4 mt-52"
-              >
-           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"> {/* <-- Added 'relative' here to contain the absolute button */}
-    <motion.div
-        className="bg-gray-800 p-8 md:p-16 rounded-2xl shadow-2xl text-center relative" // <-- Added 'relative' just in case, though the parent is handling it.
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-    >
-        {/* NEW BACK BUTTON ELEMENT */}
-        <a
-            href="/" // Change this to use a routing component (e.g., <Link to="/" />) if applicable
-            className="absolute top-4 left-4 md:top-8 md:left-8 text-white hover:text-blue-400 transition duration-300 p-3 rounded-full bg-gray-700/50 hover:bg-gray-700 z-10"
-            aria-label="Go back to home"
-        >
-            <FiArrowLeft className="text-2xl" />
-        </a>
-
-        {/* Header/Text content... (omitted for brevity) */}
-        <motion.h2
-            className="text-sm uppercase tracking-widest font-semibold text-blue-400 mb-2"
-            variants={itemVariants}
-        >
-            CONTACT
-        </motion.h2>
-        <motion.h1
-            className="text-4xl md:text-5xl font-extrabold mb-6"
-            variants={itemVariants}
-        >
-            Contact Us 👋
-        </motion.h1>
-        <motion.p
-            className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto"
-            variants={itemVariants}
-        >
-            Whether you’re a school looking to integrate STEM education or a student eager to learn, our team is ready to help.
-        </motion.p>
-
-        {/* Contact Details Grid... (omitted for brevity) */}
-        <motion.div
-            className="flex justify-center flex-wrap gap-8 mb-12"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ staggerChildren: 0.2 }}
-        >
-            {/* Email */}
-            <motion.div
-                className="flex items-center space-x-3"
-                variants={itemVariants}
             >
-                <FiMail className="text-2xl text-blue-400" />
-                <a
-                    href="mailto:info@thinkskool.in"
-                    className="text-lg font-medium text-white hover:text-blue-300 transition"
-                >
-                    info@thinkskool.in
-                </a>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                    <motion.div
+                        className="bg-gray-800 p-8 md:p-16 rounded-2xl shadow-2xl text-center relative"
+                        variants={sectionVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.4 }}
+                    >
+                        {/* Back Button */}
+                        <a
+                            href="/" 
+                            className="absolute top-4 left-4 md:top-8 md:left-8 text-white hover:text-blue-400 transition duration-300 p-3 rounded-full bg-gray-700/50 hover:bg-gray-700 z-10"
+                            aria-label="Go back to home"
+                        >
+                            <FiArrowLeft className="text-2xl" />
+                        </a>
+
+                        {/* Header/Text content */}
+                        <motion.h2
+                            className="text-sm uppercase tracking-widest font-semibold text-blue-400 mb-2"
+                            variants={itemVariants}
+                        >
+                            CONTACT
+                        </motion.h2>
+                        <motion.h1
+                            className="text-4xl md:text-5xl font-extrabold mb-6"
+                            variants={itemVariants}
+                        >
+                            Contact Us
+                        </motion.h1>
+                        <motion.p
+                            className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto"
+                            variants={itemVariants}
+                        >
+                            Whether you’re a school looking to integrate STEM education or a student eager to learn, our team is ready to help.
+                        </motion.p>
+
+                        {/* Contact Details Grid */}
+                        <motion.div
+                            className="flex justify-center flex-wrap gap-8 mb-12"
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.2 }}
+                            transition={{ staggerChildren: 0.2 }}
+                        >
+                            {/* Email */}
+                            <motion.div
+                                className="flex items-center space-x-3"
+                                variants={itemVariants}
+                            >
+                                <FiMail className="text-2xl text-blue-400" />
+                                <a
+                                    href="mailto:info@thinkskool.in"
+                                    className="text-lg font-medium text-white hover:text-blue-300 transition"
+                                >
+                                    info@thinkskool.in
+                                </a>
+                            </motion.div>
+
+                            {/* Phone */}
+                            <motion.div
+                                className="flex items-center space-x-3"
+                                variants={itemVariants}
+                            >
+                                <FiPhone className="text-2xl text-blue-400" />
+                                <a
+                                    href="tel:+918527740849"
+                                    className="text-lg font-medium text-white hover:text-blue-300 transition"
+                                >
+                                    +91-8527740849
+                                </a>
+                            </motion.div>
+                        </motion.div>
+
+                        {/* Button: Book a Demo Call */}
+                        <motion.button
+                            onClick={() => setIsModalOpen(true)}
+                            className="inline-flex items-center space-x-3 px-10 py-4 rounded-full text-xl font-bold transition-all duration-300 transform shadow-lg"
+                            style={{ backgroundColor: '#FF8C00', color: '#1F2937' }}
+                            whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(255, 140, 0, 0.4)" }}
+                            whileTap={{ scale: 0.95 }}
+                            variants={itemVariants}
+                            disabled={isSubmitting} // Disable while submitting
+                        >
+                            <FiCalendar className="text-2xl" />
+                            <span>{isSubmitting ? 'Booking...' : 'Book a Demo Call'}</span>
+                        </motion.button>
+
+                    </motion.div>
+                </div>
+
+                {/* The Booking Modal */}
+                <AnimatePresence>
+                    {isModalOpen && (
+                        <BookingModal
+                            isOpen={isModalOpen}
+                            onClose={() => setIsModalOpen(false)}
+                            onBook={handleBooking}
+                        />
+                    )}
+                </AnimatePresence>
             </motion.div>
-
-            {/* Phone */}
-            <motion.div
-                className="flex items-center space-x-3"
-                variants={itemVariants}
-            >
-                <FiPhone className="text-2xl text-blue-400" />
-                <a
-                    href="tel:+918527740849"
-                    className="text-lg font-medium text-white hover:text-blue-300 transition"
-                >
-                    +91-8527740849
-                </a>
-            </motion.div>
-        </motion.div>
-
-        {/* Button: Book a Demo Call - Now opens the modal */}
-        <motion.button
-            onClick={() => setIsModalOpen(true)} // Toggle modal visibility
-            className="inline-flex items-center space-x-3 px-10 py-4 rounded-full text-xl font-bold transition-all duration-300 transform shadow-lg"
-            style={{ backgroundColor: '#FF8C00', color: '#1F2937' }} // Setting the required orange color
-            whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(255, 140, 0, 0.4)" }}
-            whileTap={{ scale: 0.95 }}
-            variants={itemVariants}
-        >
-            <FiCalendar className="text-2xl" />
-            <span>Book a Demo Call</span>
-        </motion.button>
-
-    </motion.div>
-</div>
-
-            {/* The Booking Modal */}
-            <AnimatePresence>
-                {isModalOpen && (
-                    <BookingModal
-                        isOpen={isModalOpen}
-                        onClose={() => setIsModalOpen(false)}
-                        onBook={handleBooking}
-                    />
-                )}
-            </AnimatePresence>
-            </motion.div>
-            </LampContainer>
-       
+        </LampContainer>
     );
 };
 

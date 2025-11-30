@@ -12,7 +12,7 @@ const bookDemo = async (req, res) => {
 
     try {
         // Send email notification
-        await sendDemoBookingEmail({ name, date, email });
+        await sendDemoBookingEmail({ name, date,email});
 
         // Emit socket event
         const io = req.app.get('socketio');
