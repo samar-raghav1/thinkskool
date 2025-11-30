@@ -2,101 +2,90 @@
 import React from "react";
 import { HeroParallax } from "./ui/hero-parallax";
 
+import image2 from "../assets/images/2.png";
+import image5 from "../assets/images/5.png";
+import image6 from "../assets/images/6.png";
+import image7 from "../assets/images/7.png";
+import image8 from "../assets/images/8.png";
+import image9 from "../assets/images/9.png";
+import image10 from "../assets/images/10.png";
+
+import image13 from "../assets/images/13.jpg";
+import image14 from "../assets/images/14.jpg";
+import image15 from "../assets/images/15.jpg";
+import image16 from "../assets/images/16.jpg";
+import image17 from "../assets/images/17.jpg";
+import image18 from "../assets/images/18.jpg";
+
+
 export function HeroParallaxDemo() {
     return <HeroParallax products={products} />;
 }
 export const products = [
     {
-        title: "Moonbeam",
-        link: "https://gomoonbeam.com",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/moonbeam.png",
-    },
-    {
-        title: "Cursor",
-        link: "https://cursor.so",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/cursor.png",
-    },
-    {
-        title: "Rogue",
-        link: "https://userogue.com",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/rogue.png",
-    },
+        title: "",
 
-    {
-        title: "Editorially",
-        link: "https://editorially.org",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/editorially.png",
+        thumbnail: image13,
     },
     {
-        title: "Editrix AI",
-        link: "https://editrix.ai",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/editrix.png",
+        title: "",
+        thumbnail: image14,
     },
     {
-        title: "Pixel Perfect",
-        link: "https://app.pixelperfect.quest",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/pixelperfect.png",
+        title: "",
+ 
+        thumbnail: image7,
     },
+    {
+        title: "",
 
-    {
-        title: "Algochurn",
-        link: "https://algochurn.com",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/algochurn.png",
+        thumbnail: image16,
     },
     {
-        title: "Aceternity UI",
-        link: "https://ui.aceternity.com",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/aceternityui.png",
-    },
-    {
-        title: "Tailwind Master Kit",
-        link: "https://tailwindmasterkit.com",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/tailwindmasterkit.png",
-    },
-    {
-        title: "SmartBridge",
-        link: "https://smartbridgetech.com",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/smartbridge.png",
-    },
-    {
-        title: "Renderwork Studio",
-        link: "https://renderwork.studio",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/renderwork.png",
-    },
+        title: "",
 
-    {
-        title: "Creme Digital",
-        link: "https://cremedigital.com",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/cremedigital.png",
+        thumbnail: image15,
     },
     {
-        title: "Golden Bells Academy",
-        link: "https://goldenbellsacademy.com",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/goldenbellsacademy.png",
+        title: "",
+
+        thumbnail: image18,
     },
     {
-        title: "Invoker Labs",
-        link: "https://invoker.lol",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/invoker.png",
+        title: "",
+        thumbnail: image17,
     },
     {
-        title: "E Free Invoice",
-        link: "https://efreeinvoice.com",
-        thumbnail:
-            "https://aceternity.com/images/products/thumbnails/new/efreeinvoice.png",
+        title: "",
+        
+        thumbnail: image15,
+    },
+    {
+        title: "",
+        thumbnail: image13,
+    },
+    {
+        title: "",
+        thumbnail: image10,
+    },
+    {
+        title: "",
+        thumbnail: image2,
+    },
+    {
+        title: "",
+        thumbnail: image5,
+    },
+    {
+        title: "",
+        thumbnail: image6,
+    },
+    {
+        title: "",
+        thumbnail: image7,
+    },
+    {
+        title: "",
+        thumbnail: image8,
     },
 ];
