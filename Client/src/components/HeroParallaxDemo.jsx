@@ -2,19 +2,19 @@
 import React from "react";
 import { HeroParallax } from "./ui/hero-parallax";
 
-import image2 from "../assets/images/2.png";
-import image5 from "../assets/images/5.png";
-import image6 from "../assets/images/6.png";
-import image7 from "../assets/images/7.png";
-import image8 from "../assets/images/8.png";
-import image9 from "../assets/images/9.png";
-import image10 from "../assets/images/10.png";
+import image2 from "../assets/images/I4.jpg";
+import image5 from "../assets/images/I3.jpg";
+import image6 from "../assets/images/I1.jpg";
+import image7 from "../assets/images/I1.jpg";
+import image8 from "../assets/images/7.png";
 
-import image13 from "../assets/images/13.jpg";
-import image14 from "../assets/images/14.jpg";
-import image15 from "../assets/images/15.jpg";
-import image16 from "../assets/images/16.jpg";
-import image17 from "../assets/images/17.jpg";
+import image10 from "../assets/images/I1.jpg";
+
+import image13 from "../assets/images/I2.jpg";
+import image14 from "../assets/images/I4.jpg";
+import image15 from "../assets/images/I3.jpg";
+import image16 from "../assets/images/7.png";
+import image17 from "../assets/images/13.jpg";
 import image18 from "../assets/images/18.jpg";
 
 
