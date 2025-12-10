@@ -15,8 +15,8 @@ const bookDemo = async (req, res) => {
         await sendDemoBookingEmail({ name, date,email});
 
         // Emit socket event
-        const io = req.app.get('socketio');
-        io.emit('new-booking', { name, date });
+        const io = req.app.get('io');
+        io.emit('new-booking', { name, date ,email});
 
         res.status(200).json({ message: 'Demo booked successfully' });
     } catch (error) {
