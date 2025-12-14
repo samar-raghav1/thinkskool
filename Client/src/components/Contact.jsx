@@ -235,7 +235,7 @@ const Contact = () => {
                                     href="mailto:info@thinkskool.in"
                                     className="text-lg font-medium text-white hover:text-blue-300 transition"
                                 >
-                                    info@thinkskool.in
+                                    thinkskool.office@gmil.com
                                 </a>
                             </motion.div>
 
