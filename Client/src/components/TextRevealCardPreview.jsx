@@ -10,7 +10,7 @@ export function TextRevealCardPreview() {
     return (
         <div
             className="flex items-center justify-center bg-[#0E0E10] h-[40rem] rounded-2xl w-full">
-            <TextRevealCard text="Future-Ready Skills" revealText="AI • Cybersecurity • IoT • Robotics • Web Development">
+            <TextRevealCard text="Future-Ready Skills" revealText="AI • Cybersecurity • IoT • Development">
                 <TextRevealCardTitle>
                     Unlock Your Potential
                 </TextRevealCardTitle>
